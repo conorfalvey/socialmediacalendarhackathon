@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:latest
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=hackathonsocialcal
+    ports:
+      - '5433:5432'
+    volumes:
+      - db:/var/lib/postgresql/data
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    restart: always
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=conor.falvey22@gmail.com
+      - PGADMIN_DEFAULT_PASSWORD=postgresmaster
+    ports:
+      - '8081:80'
+volumes:
+  db:
+    driver: local
