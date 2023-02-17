@@ -1,12 +1,17 @@
 from flask import Flask, request, session
 
-app = Flask(__name__)
+consumers = Flask(__name__)
 
-
-@app.route('/notification', methods=["POST"])
+@consumers.route('/notification', methods=["POST"])
 def notification_consumer():
     return "Success"
 
-@app.route('/post', methods=["POST"])
+@consumers.route('/post', methods=["POST"])
 def post_consumer():
-    return "Sucess"
+    form = request.get_json()
+    event = events[form.pop("Type")]
+    event = event(**form)
+    return "Success"
+
+if __name__ == "__main__":
+    consumers.run(port=5000)

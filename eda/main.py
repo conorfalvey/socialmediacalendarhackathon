@@ -1,14 +1,16 @@
 import time
-from brokers import EventBus 
-from producers import produce, produce_post
+import requests 
+from producers import produce_post
 from events import PostEvent
 
-eventbus = EventBus()
-eventbus.subscribe(PostEvent(bypass=True), "/post")
+res = requests.post('http://127.0.0.1:5001/short/subscribe', json={'event_type': "PostEvent", "subscriber": "/post"})
 
-produce_post(eventbus)
-eventbus.listen()
-# while eventbus.listen():
-    # print("Done")
-    # time.sleep(10)
-    # produce_post(eventbus)
+res = requests.post('http://127.0.0.1:5001/short/subscribe', json={'event_type': "TestEvent", "subscriber": "/test"})
+
+
+produce_post()
+produce_post()
+
+res = requests.post('http://127.0.0.1:5001/short/listen')
+
+res = requests.post('http://127.0.0.1:5001/short/unsubscribe', json={'event_type': "PostEvent", "subscriber": "/post"})

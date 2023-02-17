@@ -34,7 +34,11 @@ class PostEvent(Event):
             "Text": self.text,
             "Frequency": self.frequency,
             "User_id": self.user_id,
+            "Type": "PostEvent",
         }
+    
+    def __str__(self):
+        return str(self.to_repr())
 
 class NotificationEvent(PostEvent):
     email:str
@@ -50,4 +54,5 @@ class NotificationEvent(PostEvent):
     def to_repr(self):
         return {
             "Email": self.email,
+            "Type": "NotificationEvent",
         }

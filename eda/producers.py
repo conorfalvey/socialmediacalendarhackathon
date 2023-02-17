@@ -1,14 +1,11 @@
 from events import NotificationEvent, PostEvent
-import asyncio
+import requests
 
-def produce(eventbus, event):
-    eventbus.give_event(event)
-
-def produce_post(eventbus):
+def produce_post():
     event = PostEvent(id="Test", platform="Test", delivery_time="Test", text="Test", frequency="Test", user_id="Test")
-    eventbus.give_event(event)
+    res = requests.post('http://127.0.0.1:5001/short/add', json=event.to_repr())
 
 
-def produce_notificaiton(eventbus):
+def produce_notificaiton():
     event = NotificationEvent(email="Test")
-    eventbus.give_event(event)
+    res = requests.post('http://127.0.0.1:5001/short/add')
