@@ -1,0 +1,27 @@
+Posts:
+    ID
+    Platform_id
+    delivery time
+    text
+    frequency
+    user_id
+
+Platform:
+    ID
+    Name
+    Char limit
+
+accounts:
+    ID
+    user_id
+    username
+    token
+    email
+    Platform
+
+users:
+    ID
+    Name
+    email
+    pass hash
+    default_notification
