@@ -1,4 +1,4 @@
-import asyncio
+import requests
 
 class EventBus:
     def __init__(self):
@@ -9,6 +9,7 @@ class EventBus:
         if event_type not in self.subscribers:
             self.subscribers[event_type] = []
         self.subscribers[event_type].append(subscriber)
+        print(subscriber)
 
     def unsubscribe(self, event_type, subscriber) -> None:
         if event_type not in self.subscribers:
@@ -19,8 +20,9 @@ class EventBus:
         if str(event.__class__.__name__) not in self.subscribers:
             return
         for subscriber in self.subscribers[str(event.__class__.__name__)]:
-            # yield asyncio.run(subscriber(event))
-            yield subscriber(event)
+            res = requests.post('http://127.0.0.1:5000' + subscriber, json=event.to_repr)
+            print(res)
+            yield res
 
     def give_event(self, event) -> None:
         self.queue.append(event)
@@ -32,7 +34,6 @@ class EventBus:
             # self.elastic_growth()
         return True
     
-
     # def elastic_growth(self):
     #     totals = {}
     #     for event in self.queue:

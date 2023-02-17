@@ -1,47 +1,41 @@
-from http.server import BaseHTTPRequestHandler
-from urllib.parse import parse_qs, urlparse
-from http.server import HTTPServer
-import json
+from flask import Flask, request, session
 
-class Consumer(BaseHTTPRequestHandler):
-    def do_GET(self):
-        # Parse URL.
-        parsed_url = urlparse(self.path)
-        route: str = parsed_url.path
-        query: dict = parse_qs(parsed_url.query)  # each entry is a list.
+app = Flask(__name__)
 
-        # Response values.
-        r_code: int = 200
-        r_type: str = "application/json"
-        r_content: str = ""
+# Set the secret key to some random bytes. Keep this really secret!
+# app.secret_key = b'45861e0eb8863ac8d372ecf42adf32bd64f83ff7b5201e9a161e59bd58ddd444'
 
-        try:
-            if route == "/":
-                # Do work
-                print("Working...")
+# @app.route('/')
+# def index():
+#     if 'username' in session:
+#         return f'Logged in as {session["username"]}'
+#     return 'You are not logged in'
 
-            # Fallback, handle 404s.
-            else:
-                r_code = 404
-                r_content = json.dumps({
-                    "error": "No route found matching {0}".format(route)
-                })
+# @app.route('/login', methods=['GET', 'POST'])
+# def login():
+#     if request.method == 'POST':
+#         session['username'] = request.form['username']
+#         return redirect(url_for('index'))
+#     return '''
+#         <form method="post">
+#             <p><input type=text name=username>
+#             <p><input type=submit value=Login>
+#         </form>
+#     '''
 
-            # Send the response.
-            self.send_response(r_code)
-            self.send_header("Content-Type", r_type)
-            self.end_headers()
-            self.wfile.write(r_content.encode("utf8"))
-
-        # Handle server errors.
-        except Exception as exc:
-            self.send_error(500, message="Server Error.", explain=str(exc))
+# @app.route('/logout')
+# def logout():
+#     # remove the username from the session if it's there
+#     session.pop('username', None)
+#     return redirect(url_for('index'))
 
 
-if __name__ == "__main__":
-    try:
-        print("Running web server...")
-        httpd = HTTPServer(("localhost", 8000), Consumer)
-        httpd.serve_forever()
-    except KeyboardInterrupt:
-            print("Bye.")
+@app.route('/notification', methods=["POST"])
+def notification_consumer():
+    return "Success"
+
+@app.route('/post', methods=["POST"])
+def post_consumer():
+    print('posted')
+    post = request.get_json(force=True) 
+    return post
