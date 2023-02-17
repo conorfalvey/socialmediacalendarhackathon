@@ -1,0 +1,4 @@
+TODOs
+
+1. make each consumer an api
+2. make broker an api
