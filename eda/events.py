@@ -6,12 +6,12 @@ class Event:
         return self.__class__.__name__ + " " + str(vars(self)) + "\n"
 
 class PostEvent(Event):
-    str:id
-    str:platoform
-    datetime.timedelta:delivery_time
-    str:text
-    datetime.timedelta:frequency
-    str:user_id
+    id:str
+    platform:str
+    delivery_time:datetime.timedelta
+    text:str
+    frequency:str
+    user_id:str
 
-class NotifyEvent(PostEvent):
-    str:email
+class NotificationEvent(PostEvent):
+    email:str
