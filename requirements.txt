@@ -1,3 +1,8 @@
+<<<<<<< HEAD
 alembic
 requests
 flask
+=======
+alembic==1.9.4
+sqlalchemy==2.0.3
+>>>>>>> bf0ff4bdbf9d336151f765a7f1eea44b50dafc28

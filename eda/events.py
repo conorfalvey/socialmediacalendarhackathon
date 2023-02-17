@@ -13,6 +13,19 @@ class PostEvent(Event):
     frequency:str
     user_id:str
 
+    def __init__(self, bypass=False, **kwargs):
+        args = list(kwargs.values())
+        if len(args) > 6:
+            IOError("Too many arguments!")
+    
+        if not bypass:
+            self.id = args[0]
+            self.platform = args[1]
+            self.delivery_time = args[2]
+            self.text = args[3]
+            self.frequency = args[4]
+            self.user_id = args[5]
+
     def to_repr(self):
         return {
             "Id": self.id, 
@@ -20,8 +33,21 @@ class PostEvent(Event):
             "Delivery_Time": self.delivery_time,
             "Text": self.text,
             "Frequency": self.frequency,
-            "User_id": self.user_id
+            "User_id": self.user_id,
         }
 
 class NotificationEvent(PostEvent):
     email:str
+
+    def __init__(self, bypass=False, **kwargs):
+        args = list(kwargs.values())
+        if len(args) > 6:
+            IOError("Too many arguments!")
+    
+        if not bypass:
+            self.email = args[0]
+    
+    def to_repr(self):
+        return {
+            "Email": self.email,
+        }

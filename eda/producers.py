@@ -6,11 +6,11 @@ def produce(eventbus, event):
 
 def produce_post(eventbus):
     print("Producer started")
-    event = PostEvent()#(id="Test", platform="Test", delivery_time="Test", text="Test", frequency="Test", user_id="Test")
+    event = PostEvent(id="Test", platform="Test", delivery_time="Test", text="Test", frequency="Test", user_id="Test")
     eventbus.give_event(event)
     print("Producer ended")
 
 
 def produce_notificaiton(eventbus):
-    event = NotificationEvent("Test")
+    event = NotificationEvent(id="Test", platform="Test", delivery_time="Test", text="Test", frequency="Test", user_id="Test")
     eventbus.give_event(event)
