@@ -7,6 +7,6 @@ app = Flask(__name__)
 def notification_consumer():
     return "Success"
 
-@app.route('/post', methods=["POST", "GET"])
+@app.route('/post', methods=["POST"])
 def post_consumer():
     return "Sucess"

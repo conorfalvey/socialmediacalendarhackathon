@@ -7,7 +7,8 @@ eventbus = EventBus()
 eventbus.subscribe(PostEvent(bypass=True), "/post")
 
 produce_post(eventbus)
-while eventbus.listen():
-    print("Done")
-    time.sleep(10)
-    produce_post(eventbus)
+eventbus.listen()
+# while eventbus.listen():
+    # print("Done")
+    # time.sleep(10)
+    # produce_post(eventbus)
