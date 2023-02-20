@@ -1,7 +1,7 @@
 Posts:
     ID
     Platform_id
-    delivery time
+    delivery_time
     text
     frequency
     user_id
