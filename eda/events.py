@@ -45,7 +45,7 @@ class NotificationEvent(PostEvent):
 
     def __init__(self, bypass=False, **kwargs):
         args = list(kwargs.values())
-        if len(args) > 6:
+        if len(args) > 1:
             IOError("Too many arguments!")
     
         if not bypass:
@@ -63,15 +63,12 @@ class UserEvent(Event):
     email:str
     password:str
     default_notification:str
-    def __init__(self, bypass=False, *args, **kwargs):
-        if not args or len(args) < 1 and kwargs:
-            print(False)
-            args = list(kwargs.values())
-        print(args)
-
+    def __init__(self, bypass=False, **kwargs):
+        args = list(kwargs.values())
+        
         if len(args) > 5:
             IOError("Too many arguments!")
-    
+
         if not bypass:
             self._id = args[0]
             self.name = args[1]
@@ -81,6 +78,18 @@ class UserEvent(Event):
     
     def to_repr(self):
         return {
+            "Id": self._id,
+            "Name": self.name,
             "Email": self.email,
-            "Type": "NotificationEvent",
+            "Password": self.password,
+            "Default_Notification": self.default_notification,
+            "Type": "UserEvent",
         }
+
+
+events_dict = {
+    "PostEvent": PostEvent,
+    "UserEvent": UserEvent,
+}
+def get_event(string):
+    return events_dict[string]

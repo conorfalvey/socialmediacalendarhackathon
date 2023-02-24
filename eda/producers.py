@@ -10,6 +10,7 @@ def produce_notification():
     event = NotificationEvent(email="Test")
     res = requests.post('http://127.0.0.1:5001/short/add', json=event.to_repr())
 
-def produce_sign_up(_id, name, email, password, default_notification=None):
-    event = UserEvent(_id, name, email, password, default_notification)
+def produce_sign_up(**kwargs):
+    event = UserEvent(**kwargs)
+    print(event.to_repr())
     res = requests.post('http://127.0.0.1:5001/short/add', json=event.to_repr())
