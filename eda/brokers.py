@@ -1,7 +1,6 @@
 import requests
 import json
 from flask import Flask, request, session
-from events import PostEvent
 
 brokers = Flask(__name__)
 
@@ -45,9 +44,6 @@ def notify(event_repr):
     for subscriber in subscribers[event_repr["Type"]]:
         res = requests.post('http://127.0.0.1:5000' + subscriber, json=event_repr)
 
-events = {
-    "PostEvent": PostEvent,
-}
 @brokers.route('/short/add', methods=["POST"])
 def give_event() -> None:
     form = request.get_json()
