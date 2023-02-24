@@ -29,10 +29,6 @@ class UserService(object):
             return
 
     def update_user_fields(self, id, update_dict: dict):
-        update_dict["pass_hash"] = bcrypt.hashpw(
-            password=update_dict["password"].encode("utf-8"), salt=bcrypt.gensalt()
-        ).decode("utf-8")
-        del update_dict["password"]
         query_fields = ", ".join(
             [f"{i} = '{update_dict.get(i)}'" for i in update_dict.keys()]
         )
