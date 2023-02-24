@@ -13,5 +13,14 @@ def post_consumer():
     event = event(**form)
     return "Success"
 
+@consumers.route('/signup', methods=["POST"])
+def sign_up_consumer():
+    form = request.get_json()
+    event = events[form.pop("Type")]
+    event = event(**form)
+    print(event)
+    return "Success"
+
+
 if __name__ == "__main__":
     consumers.run(port=5000)

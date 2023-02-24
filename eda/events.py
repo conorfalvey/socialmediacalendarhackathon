@@ -56,3 +56,31 @@ class NotificationEvent(PostEvent):
             "Email": self.email,
             "Type": "NotificationEvent",
         }
+
+class UserEvent(Event):
+    _id:str
+    name:str
+    email:str
+    password:str
+    default_notification:str
+    def __init__(self, bypass=False, *args, **kwargs):
+        if not args or len(args) < 1 and kwargs:
+            print(False)
+            args = list(kwargs.values())
+        print(args)
+
+        if len(args) > 5:
+            IOError("Too many arguments!")
+    
+        if not bypass:
+            self._id = args[0]
+            self.name = args[1]
+            self.email = args[2]
+            self.password = args[3]
+            self.default_notification = args[4]
+    
+    def to_repr(self):
+        return {
+            "Email": self.email,
+            "Type": "NotificationEvent",
+        }
