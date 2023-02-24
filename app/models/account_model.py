@@ -11,4 +11,4 @@ class Accounts(Base):
     username = Column(String(), nullable=False)
     token = Column(String(), nullable=False)
     email = Column(String(), nullable=False)
-    platform_id = relationship("Platform")
+    platform_id = Column(String(), nullable=False)
